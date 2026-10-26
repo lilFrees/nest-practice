@@ -1,0 +1,32 @@
+### Find users with email
+
+GET http://localhost:3000/auth/find
+
+### Create User
+
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+  "name": "Miles Morales",
+  "email": "miles.morales@example.com",
+  "password": "SpiderMan123"
+}
+
+### Find user
+
+GET http://localhost:3000/auth/1
+
+### Update user
+
+PATCH http://localhost:3000/auth/1
+Content-Type: application/json
+
+{
+  "name": "John Doe"
+}
+
+### Delete user
+
+DELETE http://localhost:3000/auth/3
+
