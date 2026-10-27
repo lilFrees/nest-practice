@@ -6,6 +6,7 @@ import { User } from './user.entity';
 import { AuthService } from './auth.service';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CurrentUserInterceptor } from '../interceptors/current-user.interceptor';
+import { AuthService } from './auth/auth.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
