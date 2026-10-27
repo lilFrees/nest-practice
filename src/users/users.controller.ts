@@ -46,7 +46,7 @@ export class UsersController {
   @Post('/signup')
   async createUser(
     @Body() body: CreateUserDto,
-    @Session() session: { userId?: number },
+    @Session() session: UserSession,
   ) {
     const user = await this.authService.signup(body);
     session.userId = user.id;
@@ -54,10 +54,7 @@ export class UsersController {
   }
 
   @Post('/signin')
-  async login(
-    @Body() body: LoginUserDto,
-    @Session() session: { userId?: number },
-  ) {
+  async login(@Body() body: LoginUserDto, @Session() session: UserSession) {
     const user = await this.authService.signin(body.email, body.password);
 
     session.userId = user.id;
@@ -66,14 +63,14 @@ export class UsersController {
   }
 
   @Post('/signout')
-  signOut(@Session() session: { userId?: number }) {
+  signOut(@Session() session: UserSession) {
     session.userId = undefined;
   }
 
   @Patch('/me')
   @UseGuards(AuthGuard)
   async updateUser(
-    @Session() session: { userId: number },
+    @Session() session: UserSession,
     @Body() attr: UpdateUserDto,
   ) {
     if (attr.password) {
@@ -90,7 +87,7 @@ export class UsersController {
         throw new BadRequestException('Email already in use');
       }
     }
-    return this.usersService.update(session.userId, attr);
+    return this.usersService.update(session.userId!, attr);
   }
 
   @Get('/:id')
@@ -103,7 +100,7 @@ export class UsersController {
   @Delete('/me')
   @UseGuards(AuthGuard)
   async deleteUser(@Session() session: UserSession) {
-    const user = this.usersService.remove(session.userId!);
+    const user = await this.usersService.remove(session.userId!);
     session.userId = undefined;
     return user;
   }
