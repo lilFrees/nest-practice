@@ -13,20 +13,38 @@ Content-Type: application/json
   "password": "SpiderMan123"
 }
 
+### Login User
+
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "miles.morales@example.com",
+  "password": "SpiderMan123"
+}
+
+### Logout User
+
+POST http://localhost:3000/auth/signout
+
+### Get Me
+
+GET http://localhost:3000/auth/whoami
+
 ### Find user
 
 GET http://localhost:3000/auth/1
 
 ### Update user
 
-PATCH http://localhost:3000/auth/1
+PATCH http://localhost:3000/auth/me
 Content-Type: application/json
 
 {
-  "name": "John Doe"
+  "name": "Peter Parker"
 }
 
 ### Delete user
 
-DELETE http://localhost:3000/auth/3
+DELETE http://localhost:3000/auth/me
 

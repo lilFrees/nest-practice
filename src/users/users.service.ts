@@ -18,12 +18,14 @@ export class UsersService {
   }
 
   getUser(id: number) {
-    console.log(id);
+    if (!id) {
+      return null;
+    }
     return this.repo.findOne({ where: { id } });
   }
 
-  async update(id: string, attr: Partial<User>) {
-    const user = await this.repo.findOne({ where: { id: parseInt(id) } });
+  async update(id: number, attr: Partial<User>) {
+    const user = await this.repo.findOne({ where: { id } });
 
     if (!user) {
       throw new NotFoundException('User with that id does not exist');
@@ -33,11 +35,11 @@ export class UsersService {
     return this.repo.save(user);
   }
 
-  async remove(id: string) {
-    const user = await this.repo.findOne({ where: { id: parseInt(id) } });
+  async remove(id: number) {
+    const user = await this.repo.findOne({ where: { id: id } });
     if (!user) {
       throw new NotFoundException('User with that id does not exist');
     }
-    return this.repo.delete(user);
+    return this.repo.remove(user);
   }
 }
