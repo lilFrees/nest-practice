@@ -6,7 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './users/user.entity';
 import { APP_PIPE } from '@nestjs/core';
+import { ReportsModule } from './reports/reports.module';
 import cookieSession from 'cookie-session';
+import { Report } from './reports/reports.entity';
 
 @Module({
   imports: [
@@ -21,11 +23,12 @@ import cookieSession from 'cookie-session';
           type: 'better-sqlite3',
           database: config.get<string>('DB_NAME'),
           synchronize: true,
-          entities: [User],
+          entities: [User, Report],
         };
       },
     }),
     UsersModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [
