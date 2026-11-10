@@ -8,5 +8,20 @@ Content-Type: application/json
   "mileage": 100000,
   "lng": 0,
   "lat": 0,
-  "price": 50000
+  "price": 50000,
+  "approved": true
+}
+
+### Get all reports
+
+GET http://localhost:3000/reports
+
+
+### Approve a report
+
+PATCH http://localhost:3000/reports/7
+Content-Type: application/json
+
+{
+  "approved": true
 }
