@@ -35,6 +35,7 @@ export class ReportsService {
   createEstimate({ make, model, lat, lng, mileage, year }: GetEstimateDto) {
     return this.repo
       .createQueryBuilder()
+      .limit(3)
       .select('AVG(price)', 'price')
       .where('make = :make', { make })
       .andWhere('model = :model', { model })
@@ -44,7 +45,6 @@ export class ReportsService {
       .andWhere('approved is TRUE')
       .orderBy('mileage - :mileage', 'DESC')
       .setParameters({ mileage })
-      .limit(3)
       .getRawOne();
   }
 }
